@@ -1,0 +1,9 @@
+.DS_Store
+npm-debug.log
+
+node_modules
+cache
+settings
+
+keys/k.js
+keys/spotify_appkey.key

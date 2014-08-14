@@ -1,0 +1,16 @@
+{
+  "name": "raspi",
+  "version": "0.1.0",
+  "description": "Raspberry Pi Home Music",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.6.1",
+    "jade": "^1.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emiliano Prandi",
+  "license": "ISC"
+}

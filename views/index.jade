@@ -1,0 +1,35 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        title Raspi
+        meta(name="viewport", content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0")
+        meta(name="mobile-web-app-capable", content="yes")
+        link(rel="icon", type="image/png", href="/favicon.png")
+        link(rel="icon", sizes="196x196", href="/ic_launcher_raspi_196.png")
+        link(rel="icon", sizes="128x128", href="/ic_launcher_raspi_128.png")
+        
+        link(rel="stylesheet", href='http://fonts.googleapis.com/css?family=Roboto:400,500', type='text/css')
+        link(rel="stylesheet", href="/css/app.css")
+    body
+        div.list.js-list
+            header
+                a.action.left.js-open-menu(href="#")
+                    i.sp.sp-action.sp-menu
+                a.action.right(href="/")
+                    i.sp.sp-action.sp-player
+                h1 Playlists
+            div.content.cf
+                each pl in playlists
+                    a.list-item.js-list-item(href=pl.link)
+                        div.info
+                            i.sp.sp-fade
+                            em=pl.name
+        div.overlay.js-overlay
+        div.menu.js-menu aca menu
+        div.player.js-player aca player
+
+        script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+        script window.jQuery || document.write('<script src="/js/jquery-1.11.0.min.js"><\/script>')
+        script(src="/js/app.js")

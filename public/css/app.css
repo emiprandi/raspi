@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    background-color: #111;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+body {
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.list {
+    width: 100%;
+}
+.list header {
+    background-color: #BC1142;
+}
+.list header h1 {
+    color: #FFF;
+    font-size: 20px;
+    line-height: 56px;
+    margin-left: 72px;
+}
+.list header a.action {
+    margin: 4px 0;
+    height: 48px;
+    width: 48px;
+}
+.list header a.action.left { float: left; }
+.list header a.action.right { float: right; }
+.list .content {
+    margin-top: 8px;
+}
+.list .content a.list-item {
+    background-image: url("http://photos-h.ak.instagram.com/hphotos-ak-xap1/10175092_805586036137535_1630153367_n.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    float: left;
+    margin-bottom: 8px;
+    text-decoration: none;
+    width: -webkit-calc(50% - 4px);
+    width: calc(50% - 4px);
+}
+.list .content a.list-item:nth-child(2n) {
+    float: right;
+}
+.list .content a.list-item div.info {
+    margin-top: 120px;
+}
+.list .content a.list-item div.info em {
+    background-color: rgba(0,0,0,0.7);
+    color: #FFF;
+    display: block;
+    font-style: normal;
+    padding: 12px 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.overlay {
+    background-color: rgba(0,0,0,0.6);
+    display: none;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 5;
+}
+.overlay.active {
+    display: block;
+}
+
+.menu {
+    background-color: #FFF;
+    left: -100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    -webkit-transition: left 0.3s;
+    transition: left 0.3s;
+}
+.menu.active {
+    left: -20%;
+}
+.player {
+    background-color: yellow;
+    right: -100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+    -webkit-transition: right 0.3s;
+    transition: right 0.3s;
+}
+
+.sp {
+    background-image: url("/sprite@1x.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: bottom;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+    .sp {
+        background-image: url("/sprite@2x.png");
+        background-size: 250px 63px; 
+    }
+}
+.sp.sp-action {
+    margin: 12px;
+    height: 24px;
+    width: 24px;
+}
+.sp.sp-close {
+    background-position: 0 0;
+}
+.sp.sp-player {
+    background-position: -24px 0;
+}
+.sp.sp-menu {
+    background-position: -48px 0;
+}
+.sp.sp-playlist {
+    background-position: -72px 0;
+}
+.sp.sp-shutdown {
+    background-position: -96px 0;
+}
+.sp.sp-fade {
+    background-position: 0 -44px;
+    background-repeat: repeat-x;
+    display: block;
+    height: 19px;
+    width: 100%;
+}
+
+.cf:before,.cf:after{content:" ";display:table;}
+.cf:after{clear:both;}
