@@ -6,7 +6,9 @@ Simple music server and web client written in Node.js. I'm using it in a raspber
 * Libspotify (https://developer.spotify.com/technologies/libspotify/#download)
 
 ## Dependencies
+* express (https://github.com/strongloop/express)
 * node-spotify (https://github.com/FrontierPsychiatrist/node-spotify)
+* jade (https://github.com/visionmedia/jade)
 
 ## Installation
 1. Put your spotify_appkey.key in ```/keys```
