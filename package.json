@@ -1,16 +1,21 @@
 {
   "name": "raspi",
   "version": "0.1.0",
-  "description": "Raspberry Pi Home Music",
+  "description": "Simple Music Server - Ideal for Raspberry Pi",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emiprandi/raspi.git"
+  },
   "dependencies": {
     "express": "^4.6.1",
     "jade": "^1.4.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "author": "Emiliano Prandi",
+  "author": "Emiliano Prandi <emiprandi@gmail.com>",
   "license": "ISC"
 }
