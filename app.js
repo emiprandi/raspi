@@ -11,15 +11,26 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
-raspi.app.log = function(msg, status) {
+raspi.app.log = function (msg, status) {
     console.log('----------------------------');
     console.log('RASPI ' + status + ': ' + msg);
 }
-raspi.app.init = function() {
+raspi.app.init = function () {
     raspi.app.log('Servidor', 'OK');
     spotify.login(k.spotify_user, k.spotify_pass, false, false);
 }
-raspi.app.resetQueue = function() {
+raspi.app.playNextSong = function () {
+    if (raspi.player.queue.length > 0) {
+        var track = raspi.player.queue.shift();
+        
+        spotify.player.play(track);
+        raspi.app.log('Ahora suena: ' + track.name + ' de ' + track.artists[0].name, 'OK');
+    } else {
+        raspi.app.resetQueue();
+        raspi.app.log('No hay más canciones', 'OK');
+    }
+}
+raspi.app.resetQueue = function () {
     raspi.player.queue = {};
 }
 
@@ -35,7 +46,7 @@ spotify.on({
 });
 spotify.player.on({
     endOfTrack: function () {
-        raspi.app.log('Fin de la canción', 'OK');
+        raspi.app.playNextSong();
     }
 });
 
@@ -49,12 +60,10 @@ app.get('/', function(req, res) {
 
 app.get('/play/:pl', function(req, res) {
     var pl = spotify.createFromLink(req.params.pl);
-    var track = pl.getTrack(0);
+    raspi.player.queue = pl.getTracks();
 
-    raspi.app.log('Ahora suena: ' + track.name + ' de ' + track.artists[0].name, 'OK');
-    spotify.player.play(track);
-    
-    res.send('ok');
+    raspi.app.playNextSong();
+    res.status(200).end();
 });
 
 
