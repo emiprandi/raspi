@@ -1,37 +1,38 @@
 var k = require('./keys/k'),
     spotify = require('./node_modules/node-spotify/spotify')({ appkeyFile: './keys/spotify_appkey.key' }),
     express = require('express'),
-    app = express();
+    serv = express();
 
 /*
  * APP
  */
-var raspi = { 'app': {}, 'playlists': {}, 'player': { 'queue': {} } };
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(express.static(__dirname + '/public'));
+var raspi = {},
+    app = { 'playlists': {}, 'player': { 'playing': false, 'queue': {} } };
+serv.set('views', __dirname + '/views');
+serv.set('view engine', 'jade');
+serv.use(express.static(__dirname + '/public'));
 
-raspi.app.log = function (msg, status) {
+raspi.log = function (msg, status) {
     console.log('----------------------------');
     console.log('RASPI ' + status + ': ' + msg);
 }
-raspi.app.init = function () {
-    raspi.app.log('Servidor', 'OK');
+raspi.init = function () {
+    raspi.log('Servidor', 'OK');
     spotify.login(k.spotify_user, k.spotify_pass, false, false);
 }
-raspi.app.playNextSong = function () {
-    if (raspi.player.queue.length > 0) {
-        var track = raspi.player.queue.shift();
+raspi.playNextSong = function () {
+    if (app.player.queue.length > 0) {
+        var track = app.player.queue.shift();
         
         spotify.player.play(track);
-        raspi.app.log('Ahora suena: ' + track.name + ' de ' + track.artists[0].name, 'OK');
+        raspi.log('Ahora suena: ' + track.name + ' de ' + track.artists[0].name, 'OK');
     } else {
-        raspi.app.resetQueue();
-        raspi.app.log('No hay más canciones', 'OK');
+        raspi.resetQueue();
+        raspi.log('No hay más canciones', 'OK');
     }
 }
-raspi.app.resetQueue = function () {
-    raspi.player.queue = {};
+raspi.resetQueue = function () {
+    app.player.queue = {};
 }
 
 
@@ -40,13 +41,14 @@ raspi.app.resetQueue = function () {
  */
 spotify.on({
     ready: function () {
-        raspi.app.log('Spotify', 'OK');
-        raspi.playlists = spotify.playlistContainer.getPlaylists();
+        app.playlists = spotify.playlistContainer.getPlaylists();
+        raspi.log('Playlists', 'OK');
+        raspi.log('Todo listo!', 'OK');
     }
 });
 spotify.player.on({
     endOfTrack: function () {
-        raspi.app.playNextSong();
+        raspi.playNextSong();
     }
 });
 
@@ -54,15 +56,15 @@ spotify.player.on({
 /*
  * ROUTES
  */
-app.get('/', function(req, res) {
-    res.render('index', { playlists: raspi.playlists, queue: raspi.player.queue });
+serv.get('/', function(req, res) {
+    res.render('index', { app: app });
 });
 
-app.get('/play/:pl', function(req, res) {
+serv.get('/play/:pl', function(req, res) {
     var pl = spotify.createFromLink(req.params.pl);
-    raspi.player.queue = pl.getTracks();
+    app.player.queue = pl.getTracks();
 
-    raspi.app.playNextSong();
+    raspi.playNextSong();
     res.status(200).end();
 });
 
@@ -70,4 +72,4 @@ app.get('/play/:pl', function(req, res) {
 /*
  * SERVER
  */
-app.listen(3000, raspi.app.init);
+serv.listen(3000, raspi.init);
