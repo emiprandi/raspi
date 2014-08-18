@@ -22,10 +22,10 @@ html(lang="es")
                 h1 Playlists
             div.content.cf
                 each pl in app.playlists
-                    a.list-item.js-list-item(href=pl.link)
+                    a.list-item.js-list-item(href=pl.link, style="background-image: url('"+pl.image+"')")
                         div.info
                             i.sp.sp-fade
-                            em=pl.name
+                            em= pl.name
         div.overlay.js-overlay
         div.menu.js-menu aca menu
         div.player.js-player aca player
