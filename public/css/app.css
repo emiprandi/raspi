@@ -42,13 +42,13 @@ h1 {
     background-repeat: no-repeat;
     background-position: center;
     float: left;
-    margin-bottom: 8px;
+    margin: 0 8px 8px 0;
     text-decoration: none;
     width: -webkit-calc(50% - 4px);
     width: calc(50% - 4px);
 }
 .list .content a.list-item:nth-child(2n) {
-    float: right;
+    margin-right: 0;
 }
 .list .content a.list-item div.info {
     margin-top: 120px;
@@ -62,6 +62,18 @@ h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+@media only screen and (min-width: 600px) {
+    .list .content a.list-item {
+        width: -webkit-calc(25% - 6px);
+        width: calc(25% - 6px);
+    }
+    .list .content a.list-item:nth-child(2n) {
+        margin-right: 8px;
+    }
+    .list .content a.list-item:nth-child(4n) {
+        margin-right: 0;
+    }
 }
 
 .overlay {
