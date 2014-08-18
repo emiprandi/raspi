@@ -20,7 +20,7 @@ raspi.init = function () {
     raspi.log('Servidor', 'OK');
     spotify.login(k.spotify_user, k.spotify_pass, false, false);
 }
-raspi.playerPlayNextSong = function () {
+raspi.player.playNextSong = function () {
     if (app.player.queue.length > 0) {
         var track = app.player.queue.shift();
         
@@ -31,7 +31,7 @@ raspi.playerPlayNextSong = function () {
         raspi.log('No hay más canciones', 'OK');
     }
 }
-raspi.playerStop = function () {
+raspi.player.stop = function () {
     spotify.player.stop();
 }
 raspi.resetQueue = function () {
@@ -57,7 +57,7 @@ spotify.on({
 });
 spotify.player.on({
     endOfTrack: function () {
-        raspi.playerPlayNextSong();
+        raspi.player.playNextSong();
     }
 });
 
@@ -73,12 +73,12 @@ serv.get('/play/:pl', function(req, res) {
     var pl = spotify.createFromLink(req.params.pl);
     app.player.queue = pl.getTracks();
 
-    raspi.playerPlayNextSong();
+    raspi.player.playNextSong();
     res.status(200).end();
 });
 
 serv.get('/stop', function(req, res) {
-    raspi.playerStop();
+    raspi.player.stop();
     res.status(200).end();
 });
 
