@@ -13,7 +13,8 @@ Simple music server and web client written in Node.js. I'm using it in a raspber
 ## Installation
 1. Put your spotify_appkey.key in ```/keys```
 2. Copy ```/keys/k_dist.js``` into ```/keys/k.js``` and add your credentials
-3. Compile or download node-spotify binaries from node-spotify site. Place it inside ```node_modules```
-4. npm install
-5. npm start
-6. Go to http://localhost:3000
+3. Install libspotify
+4. Compile or download node-spotify binaries from node-spotify site. Place it inside ```node_modules```
+5. npm install
+6. npm start
+7. Go to http://localhost:3000
