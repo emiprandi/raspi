@@ -1,5 +1,5 @@
-# Simple Music Server
-Simple music server and web client written in Node.js. I'm using it in a raspberry pi.
+# Spotify Music Server
+Simple Spotify Music Server and Web Client written in Node.js. I'm using it in a raspberry pi.
 
 ## Requirements
 * Spotify premium account and binary app key (https://developer.spotify.com/technologies/libspotify/#application-keys)
