@@ -22,18 +22,20 @@ raspi.init = function () {
 }
 raspi.playerPlayNextSong = function () {
     if (app.player.queue.length > 0) {
-        //var track = app.player.queue.shift();
-        var trackNro = raspi.randomInt(0, app.player.queue.length);
-            track = app.player.queue[trackNro];
+        var trackNro = raspi.randomInt(0, app.player.queue.length),
+            //track = app.player.queue.shift();
+            track = app.player.queue.splice(trackNro, 1),
+            track = track[0];
 
-        delete app.player.queue[trackNro];
-        
         spotify.player.play(track);
         raspi.log('Ahora suena: ' + track.name + ' de ' + track.artists[0].name, 'OK');
     } else {
         raspi.resetQueue();
         raspi.log('No hay más canciones', 'OK');
     }
+}
+raspi.playerSeek = function (second) {
+    spotify.player.seek(parseInt(second));
 }
 raspi.playerStop = function () {
     spotify.player.stop();
@@ -78,6 +80,11 @@ serv.get('/play/:pl', function(req, res) {
     app.player.queue = pl.getTracks();
 
     raspi.playerPlayNextSong();
+    res.status(200).end();
+});
+
+serv.get('/seek/:s', function(req, res) {
+    raspi.playerSeek(req.params.s);
     res.status(200).end();
 });
 
