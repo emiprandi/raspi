@@ -17,12 +17,12 @@ raspi.log = function (msg, status) {
     console.log('RASPI ' + status + ': ' + msg);
 }
 raspi.init = function () {
-    raspi.log('Servidor', 'OK');
+    raspi.log('Server', 'OK');
     spotify.login(k.spotify_user, k.spotify_pass, false, false);
 }
 raspi.playerPlayNextSong = function () {
     if (app.player.queue.length > 0) {
-        var trackNro = raspi.randomInt(0, app.player.queue.length),
+        var trackNro = raspi.randomInt(0, (app.player.queue.length-1)),
             //track = app.player.queue.shift();
             track = app.player.queue.splice(trackNro, 1),
             track = track[0];
@@ -31,11 +31,11 @@ raspi.playerPlayNextSong = function () {
         raspi.setNowPlaying(track);
 
         app.player.playing = true;
-        raspi.log('Ahora suena: ' + track.name + ' de ' + track.artists[0].name, 'OK');
+        raspi.log('Now playing: ' + track.name + ' de ' + track.artists[0].name, 'OK');
     } else {
         raspi.resetQueue();
         app.player.playing = false;
-        raspi.log('No hay más canciones', 'OK');
+        raspi.log('No more songs', 'OK');
     }
 }
 raspi.playerSeek = function (second) {
@@ -72,7 +72,6 @@ spotify.on({
             app.playlists[pl].image = '/default_image_' + raspi.randomInt(1, 5) + '.png';
         }
         raspi.log('Playlists', 'OK');
-        raspi.log('Todo listo!', 'OK');
     }
 });
 spotify.player.on({
