@@ -1,6 +1,9 @@
 * {
     box-sizing: border-box;
 }
+*:focus {
+    outline: 0;
+}
 html {
     background-color: #111;
     font-family: 'Roboto', sans-serif;
@@ -9,32 +12,38 @@ html {
 body {
     margin: 0;
 }
+body.no-scroll {
+    height: 100%;
+    overflow: hidden;
+}
 
 h1 {
     margin: 0;
 }
 
-.list {
-    width: 100%;
-}
-.list header {
+header {
     background-color: #BC1142;
 }
-.list header h1 {
+header h1 {
     color: #FFF;
     font-size: 20px;
     line-height: 56px;
     margin-left: 72px;
 }
-.list header a.action {
+header a.action {
     margin: 4px 0;
     height: 48px;
     width: 48px;
 }
-.list header a.action.left { float: left; }
-.list header a.action.right { float: right; }
-.list .content {
+header a.action.left { float: left; }
+header a.action.right { float: right; }
+
+.content {
     margin-top: 8px;
+}
+
+.list {
+    width: 100%;
 }
 .list .content a.list-item {
     background-size: cover;
@@ -103,15 +112,59 @@ h1 {
 .menu.active {
     left: -20%;
 }
+
 .player {
-    background-color: yellow;
-    right: -100%;
+    background-color: #222;
+    height: 100%;
     position: fixed;
+    right: -100%;
     top: 0;
     width: 100%;
     z-index: 20;
     -webkit-transition: right 0.3s;
     transition: right 0.3s;
+}
+.player.active {
+    right: 0;
+}
+.player header {
+    background-color: transparent;
+}
+.player .content {
+    margin: 8px 12px 0 12px;
+    text-align: center;
+}
+.player .content img.album-art {
+    display: none;
+    width: 60%;
+    max-width: 300px;
+}
+
+.player .controls {
+    background-color: #222;
+    bottom: 0;
+    color: #EEE;
+    height: 112px;
+    padding-top: 12px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+.player .controls .song-info {
+    overflow: hidden;
+    padding: 0 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.player .controls .song-info.song {
+    font-size: 18px;
+    padding: 4px 0;
+}
+.player .controls .song-info.artist {
+    color: #AAA;
+    font-size: 14px;
+    padding: 4px 0;
 }
 
 .sp {

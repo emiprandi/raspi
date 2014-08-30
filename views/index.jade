@@ -17,7 +17,7 @@ html(lang="es")
             header
                 a.action.left.js-open-menu(href="#")
                     i.sp.sp-action.sp-menu
-                a.action.right(href="/")
+                a.action.right.js-open-player(href="#")
                     i.sp.sp-action.sp-player
                 h1 Playlists
             div.content.cf
@@ -27,8 +27,18 @@ html(lang="es")
                             i.sp.sp-fade
                             em= pl.name
         div.overlay.js-overlay
-        div.menu.js-menu aca menu
-        div.player.js-player aca player
+        div.menu.js-menu .
+        - var klass = (app.player.playing ? 'active' : '')
+        div.player.js-player(class=klass)
+            header
+                a.action.left.js-close-player(href="#")
+                    i.sp.sp-action.sp-close
+                h1 Estamos escuchando
+            div.content.cf
+                img.album-art.js-album-art(src="http://assets.rollingstone.com/assets/images/album_review/muse-2nd-law-artwork5-1348263520.jpg")
+            div.controls
+                div.song-info.song.js-song(id=app.player.nowplaying.id)= app.player.nowplaying.song
+                div.song-info.artist.js-artist= app.player.nowplaying.artist
 
         script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
         script window.jQuery || document.write('<script src="/js/jquery-1.11.0.min.js"><\/script>')

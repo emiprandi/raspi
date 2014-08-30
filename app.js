@@ -7,7 +7,7 @@ var k = require('./keys/k'),
  * APP
  */
 var raspi = {},
-    app = { 'playlists': {}, 'player': { 'playing': false, 'queue': {} } };
+    app = { 'playlists': {}, 'player': { 'playing': false, 'nowplaying': {}, 'queue': {} } };
 serv.set('views', __dirname + '/views');
 serv.set('view engine', 'jade');
 serv.use(express.static(__dirname + '/public'));
@@ -26,11 +26,15 @@ raspi.playerPlayNextSong = function () {
             //track = app.player.queue.shift();
             track = app.player.queue.splice(trackNro, 1),
             track = track[0];
-
+        
         spotify.player.play(track);
+        raspi.setNowPlaying(track);
+
+        app.player.playing = true;
         raspi.log('Ahora suena: ' + track.name + ' de ' + track.artists[0].name, 'OK');
     } else {
         raspi.resetQueue();
+        app.player.playing = false;
         raspi.log('No hay más canciones', 'OK');
     }
 }
@@ -42,6 +46,16 @@ raspi.playerStop = function () {
 }
 raspi.resetQueue = function () {
     app.player.queue = {};
+}
+raspi.setNowPlaying = function (trkObj) {
+    app.player.nowplaying = {
+        song: trkObj.name,
+        album: trkObj.album.name,
+        artist: trkObj.artists[0].name,
+        duration: trkObj.duration,
+        link: trkObj.link,
+        id: trkObj.link.split(':')[2]
+    }
 }
 raspi.randomInt = function (min, max) {
     return Math.floor(Math.random() * ((max+1) - min)) + min;
@@ -91,6 +105,10 @@ serv.get('/seek/:s', function(req, res) {
 serv.get('/stop', function(req, res) {
     raspi.playerStop();
     res.status(200).end();
+});
+
+serv.get('/nowplaying', function(req, res) {
+    res.send(app.player.nowplaying);
 });
 
 
