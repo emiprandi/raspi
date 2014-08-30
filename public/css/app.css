@@ -5,7 +5,7 @@
     outline: 0;
 }
 html {
-    background-color: #111;
+    background-color: #EEE;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
@@ -113,7 +113,7 @@ header a.action.right { float: right; }
     left: -20%;
 }
 
-.player {
+.search {
     background-color: #222;
     height: 100%;
     position: fixed;
@@ -124,47 +124,83 @@ header a.action.right { float: right; }
     -webkit-transition: right 0.3s;
     transition: right 0.3s;
 }
-.player.active {
+.search.active {
     right: 0;
 }
-.player header {
+.search header {
     background-color: transparent;
 }
-.player .content {
+.search .content {
     margin: 8px 12px 0 12px;
     text-align: center;
 }
-.player .content img.album-art {
-    display: none;
-    width: 60%;
-    max-width: 300px;
-}
 
-.player .controls {
-    background-color: #222;
+.player {
+    background-color: #FFF;
+    height: 100px;
+    position: fixed;
+    bottom: -110px;
+    width: 100%;
+    z-index: 20;
+    -webkit-transition: bottom 0.3s;
+    transition: bottom 0.3s;
+    -webkit-box-shadow: 0 -1px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 -1px 8px rgba(0,0,0,0.5);
+}
+.player.active {
     bottom: 0;
-    color: #EEE;
-    height: 112px;
-    padding-top: 12px;
-    position: absolute;
-    text-align: center;
+}
+.player .cover {
+    float: left;
+    height: 100px;
+    position: relative;
+    width: 100px;
+}
+.player .cover img {
     width: 100%;
 }
-.player .controls .song-info {
+.player .cover a {
+    left: 0;
+    padding: 30px;
+    position: absolute;
+    top: 0;
+}
+.player .info {
+    float: left;
+    padding: 12px;
+    width: -webkit-calc(100% - 100px);
+    width: calc(100% - 100px);
+}
+.player .info i.sp {
+    float: right;
+}
+.player .info .label {
+    float: left;
     overflow: hidden;
-    padding: 0 20px;
+    padding: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 100%;
+    width: -webkit-calc(100% - 60px);
+    width: calc(100% - 60px);
 }
-.player .controls .song-info.song {
+.player .info .label.song {
     font-size: 18px;
-    padding: 4px 0;
+    line-height: 24px;
 }
-.player .controls .song-info.artist {
+.player .info .label.artist {
     color: #AAA;
     font-size: 14px;
+    line-height: 14px;
     padding: 4px 0;
+}
+.player .info .label.duration {
+    float: right;
+    color: #AAA;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 4px 6px 4px 0;
+    width: 50px;
+    text-align: right;
 }
 
 .sp {
@@ -176,7 +212,7 @@ header a.action.right { float: right; }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
     .sp {
         background-image: url("/sprite@2x.png");
-        background-size: 250px 63px; 
+        background-size: 144px 64px; 
     }
 }
 .sp.sp-action {
@@ -199,12 +235,20 @@ header a.action.right { float: right; }
 .sp.sp-shutdown {
     background-position: -96px 0;
 }
-.sp.sp-fade {
-    background-position: 0 -44px;
-    background-repeat: repeat-x;
-    display: block;
-    height: 19px;
-    width: 100%;
+.sp.sp-random {
+    background-position: -120px 0;
+    height: 24px;
+    width: 24px;
+}
+.sp.sp-pause {
+    background-position: 0 -24px;
+    height: 40px;
+    width: 40px;
+}
+.sp.sp-play {
+    background-position: -40px -24px;
+    height: 40px;
+    width: 40px;
 }
 
 .cf:before,.cf:after{content:" ";display:table;}

@@ -2,9 +2,7 @@ $(function(){
     /*
      * onload actions
      */
-    if($('.js-player').hasClass('active')){
-        $('.js-album-art').show();
-    }
+    $('.js-control-play').hide();
 
     /*
      * list actions
@@ -44,6 +42,11 @@ $(function(){
         $('.js-player').removeClass('active');
         return false;
     });
+    $('.js-control-pause').click(function(){
+        $('.js-player').removeClass('active');
+        return false;
+    });
+
     $('.js-album-art').click(function(){
         var trackId = $('.js-song').attr('id');
         $.ajax({ url: 'https://api.spotify.com/v1/tracks/' + trackId, cache: false }).done(function(r){

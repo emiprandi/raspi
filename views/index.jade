@@ -28,17 +28,24 @@ html(lang="es")
                             em= pl.name
         div.overlay.js-overlay
         div.menu.js-menu .
-        - var klass = (app.player.playing ? 'active' : '')
-        div.player.js-player(class=klass)
+        div.search.js-search
             header
                 a.action.left.js-close-player(href="#")
                     i.sp.sp-action.sp-close
-                h1 Estamos escuchando
-            div.content.cf
-                img.album-art.js-album-art(src="http://assets.rollingstone.com/assets/images/album_review/muse-2nd-law-artwork5-1348263520.jpg")
-            div.controls
-                div.song-info.song.js-song(id=app.player.nowplaying.id)= app.player.nowplaying.song
-                div.song-info.artist.js-artist= app.player.nowplaying.artist
+                h1 Buscar
+            div.content.cf ---
+        div.player.js-player(class=app.player.playing ? 'active' : '')
+            div.cover
+                img.js-album-art(src="http://houbi.com/belpop/media/hooverphonic.jpg")
+                a.js-control-play(href="#")
+                    i.sp.sp-play
+                a.js-control-pause(href="#")
+                    i.sp.sp-pause
+            div.info
+                i.sp.sp-random
+                div.label.song.js-song(id=app.player.nowplaying.id)= app.player.nowplaying.song
+                div.label.duration.js-duration= (app.player.nowplaying.duration/60)
+                div.label.artist.js-artist= app.player.nowplaying.artist
 
         script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
         script window.jQuery || document.write('<script src="/js/jquery-1.11.0.min.js"><\/script>')
