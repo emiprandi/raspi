@@ -7,6 +7,7 @@ Simple Spotify Music Server and Web Client written in Node.js. I'm using it in a
 
 ## Dependencies
 * express (https://github.com/strongloop/express)
+* socket.io (https://github.com/Automattic/socket.io)
 * node-spotify (https://github.com/FrontierPsychiatrist/node-spotify)
 * jade (https://github.com/visionmedia/jade)
 

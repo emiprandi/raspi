@@ -6,7 +6,7 @@
 }
 html {
     background-color: #EEE;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
 }
 body {
@@ -135,6 +135,20 @@ header a.action.right { float: right; }
     text-align: center;
 }
 
+.warning {
+    display: none;
+    background-color: yellow;
+    position: fixed;
+    bottom: 100px;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 14px;
+    z-index: 30;
+    -webkit-box-shadow: 0 -2px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 -2px 2px rgba(0,0,0,0.2);
+}
+
 .player {
     background-color: #FFF;
     height: 100px;
@@ -147,7 +161,7 @@ header a.action.right { float: right; }
     -webkit-box-shadow: 0 -1px 8px rgba(0,0,0,0.5);
     box-shadow: 0 -1px 8px rgba(0,0,0,0.5);
 }
-.player.active {
+body.playing .player {
     bottom: 0;
 }
 .player .cover {

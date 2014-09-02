@@ -12,7 +12,7 @@ html(lang="es")
         
         link(rel="stylesheet", href='http://fonts.googleapis.com/css?family=Roboto:400,500', type='text/css')
         link(rel="stylesheet", href="/css/app.css")
-    body
+    body.js-app(class=rApp.player.queue.length > 0 ? "playing" : "")
         div.list.js-list
             header
                 a.action.left.js-open-menu(href="#")
@@ -21,7 +21,7 @@ html(lang="es")
                     i.sp.sp-action.sp-player
                 h1 Playlists
             div.content.cf
-                each pl in app.playlists
+                each pl in rApp.playlists
                     a.list-item.js-list-item(href=pl.link, style="background-image: url('"+pl.image+"')")
                         div.info
                             i.sp.sp-fade
@@ -34,19 +34,21 @@ html(lang="es")
                     i.sp.sp-action.sp-close
                 h1 Buscar
             div.content.cf ---
-        div.player.js-player(class=app.player.playing ? 'active' : '')
+        div.warning.js-warning Error de conexión
+        div.player.js-player(id=rApp.player.nowplaying.id)
             div.cover
-                img.js-album-art(src="http://houbi.com/belpop/media/hooverphonic.jpg")
-                a.js-control-play(href="#")
+                img.js-album-art(src="http://houbi.com/belpop/media/hooverphonic.jpg", width="100", height="100")
+                a.js-control-play(href="#",style=rApp.player.playing ? "display: none;" : "")
                     i.sp.sp-play
-                a.js-control-pause(href="#")
+                a.js-control-pause(href="#",style=rApp.player.playing ? "" : "display: none;")
                     i.sp.sp-pause
             div.info
                 i.sp.sp-random
-                div.label.song.js-song(id=app.player.nowplaying.id)= app.player.nowplaying.song
-                div.label.duration.js-duration= (app.player.nowplaying.duration/60)
-                div.label.artist.js-artist= app.player.nowplaying.artist
+                div.label.song.js-song= rApp.player.nowplaying.song
+                div.label.duration.js-duration= (rApp.player.nowplaying.duration)
+                div.label.artist.js-artist= rApp.player.nowplaying.artist
 
         script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
         script window.jQuery || document.write('<script src="/js/jquery-1.11.0.min.js"><\/script>')
+        script(src="/socket.io/socket.io.js")
         script(src="/js/app.js")
