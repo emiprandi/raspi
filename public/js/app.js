@@ -22,7 +22,6 @@ $(function(){
     });
     $('.js-list-item').click(function(){
         var pl = $(this).prop('href');
-        //$.ajax({ url: '/play/' + pl, cache: false });
         socket.emit('set playlist', pl);
         return false;
     });
@@ -30,12 +29,6 @@ $(function(){
     /*
      * player actions
      */
-    $('.js-close-player').click(function(){
-        allowScroll(true);
-        $('.js-album-art').hide();
-        $('.js-app').removeClass('playing');
-        return false;
-    });
     $('.js-control-pause').click(function(){
         $('.js-app').removeClass('playing');
         return false;
@@ -50,21 +43,20 @@ $(function(){
     socket.on('disconnect', function(){
         $('.js-warning').show();
     });
-    socket.on('status', function(track){
-        setNowPlaying(track);
+    socket.on('status', function(player){
+        setNowPlaying(player);
     });
-    socket.on('new song', function(track){
-        setNowPlaying(track);
+    socket.on('new song', function(player){
+        setNowPlaying(player);
     });
 
-    function setNowPlaying(track){
+    function setNowPlaying(player){
         $('.js-app').addClass('playing');
-        $('.js-song').text(track.song);
-        $('.js-artist').text(track.artist);
-        $('.js-duration').text(track.duration);
-        $.ajax({ url: 'https://api.spotify.com/v1/tracks/' + track.id, cache: false }).done(function(r){
+        $('.js-song').text(player.nowplaying.song);
+        $('.js-artist').text(player.nowplaying.artist);
+        $('.js-duration').text(player.nowplaying.duration);
+        $.ajax({ url: 'https://api.spotify.com/v1/tracks/' + player.nowplaying.id, cache: false }).done(function(r){
             $('.js-album-art').attr('src',r.album.images[1].url);
-            console.log(r);
         });
     }
 

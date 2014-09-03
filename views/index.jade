@@ -12,7 +12,7 @@ html(lang="es")
         
         link(rel="stylesheet", href='http://fonts.googleapis.com/css?family=Roboto:400,500', type='text/css')
         link(rel="stylesheet", href="/css/app.css")
-    body.js-app(class=rApp.player.queue.length > 0 ? "playing" : "")
+    body.js-app
         div.list.js-list
             header
                 a.action.left.js-open-menu(href="#")
@@ -21,7 +21,7 @@ html(lang="es")
                     i.sp.sp-action.sp-player
                 h1 Playlists
             div.content.cf
-                each pl in rApp.playlists
+                each pl in playlists
                     a.list-item.js-list-item(href=pl.link, style="background-image: url('"+pl.image+"')")
                         div.info
                             i.sp.sp-fade
@@ -35,18 +35,18 @@ html(lang="es")
                 h1 Buscar
             div.content.cf ---
         div.warning.js-warning Error de conexión
-        div.player.js-player(id=rApp.player.nowplaying.id)
+        div.player
             div.cover
                 img.js-album-art(src="http://houbi.com/belpop/media/hooverphonic.jpg", width="100", height="100")
-                a.js-control-play(href="#",style=rApp.player.playing ? "display: none;" : "")
+                a.js-control-play(href="#")
                     i.sp.sp-play
-                a.js-control-pause(href="#",style=rApp.player.playing ? "" : "display: none;")
+                a.js-control-pause(href="#")
                     i.sp.sp-pause
             div.info
                 i.sp.sp-random
-                div.label.song.js-song= rApp.player.nowplaying.song
-                div.label.duration.js-duration= (rApp.player.nowplaying.duration)
-                div.label.artist.js-artist= rApp.player.nowplaying.artist
+                div.label.song.js-song
+                div.label.duration.js-duration
+                div.label.artist.js-artist
 
         script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
         script window.jQuery || document.write('<script src="/js/jquery-1.11.0.min.js"><\/script>')

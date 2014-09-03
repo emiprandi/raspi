@@ -9,13 +9,13 @@ var k = require('./keys/k'),
  * APP
  */
 var rClass = {},
-    rApp = { 'playlists': {}, 'player': { 'playing': false, 'nowplaying': {}, 'queue': {} } };
+    rApp = { 'playlists': {}, 'queue': {}, 'player': { 'status': 0, 'nowplaying': {} } };
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
-    res.render('index', { rApp: rApp });
+    res.render('index', { playlists: rApp.playlists });
 });
 
 rClass.log = function (msg) {
@@ -30,20 +30,20 @@ rClass.init = function () {
     spotify.login(k.spotify_user, k.spotify_pass, false, false);
 }
 rClass.playerPlayNextSong = function () {
-    if (rApp.player.queue.length > 0) {
-        var trackNro = rClass.randomInt(0, (rApp.player.queue.length-1)),
-            //track = rApp.player.queue.shift();
-            track = rApp.player.queue.splice(trackNro, 1),
+    if (rApp.queue.length > 0) {
+        var trackNro = rClass.randomInt(0, (rApp.queue.length-1)),
+            //track = rApp.queue.shift();
+            track = rApp.queue.splice(trackNro, 1),
             track = track[0];
         
         spotify.player.play(track);
         rClass.setNowPlaying(track);
 
-        rApp.player.playing = true;
+        rApp.player.status = 1;
         rClass.log('Now playing: ' + track.name + ' de ' + track.artists[0].name);
     } else {
         rClass.resetQueue();
-        rApp.player.playing = false;
+        rApp.player.status = 0;
         rClass.log('No more songs');
     }
 }
@@ -65,7 +65,7 @@ rClass.setNowPlaying = function (trkObj) {
         link: trkObj.link,
         id: trkObj.link.split(':')[2]
     }
-    io.emit('new song', rApp.player.nowplaying);
+    io.emit('new song', rApp.player);
 }
 rClass.logout = function () {
     spotify.logout();
@@ -96,13 +96,13 @@ spotify.player.on({
  */
 io.on('connection', function (socket) {
     rClass.log('Hola');
-    socket.emit('status', rApp.player.nowplaying);
+    socket.emit('status', rApp.player);
 
     socket.on('set playlist', function (playlist) {
         rClass.log('Nueva playlist: ' + playlist);
         
         var pl = spotify.createFromLink(playlist);
-        rApp.player.queue = pl.getTracks();
+        rApp.queue = pl.getTracks();
 
         rClass.playerPlayNextSong();
     });
