@@ -3,7 +3,6 @@ $(function(){
      * onload actions
      */
     var socket = io();
-    //$('.js-control-play').hide();
 
     /*
      * list actions
@@ -29,8 +28,12 @@ $(function(){
     /*
      * player actions
      */
+    $('.js-control-play').click(function(){
+        socket.emit('player resume');
+        return false;
+    });
     $('.js-control-pause').click(function(){
-        $('.js-app').removeClass('playing');
+        socket.emit('player pause');
         return false;
     });
 
@@ -51,13 +54,37 @@ $(function(){
     });
 
     function setNowPlaying(player){
-        $('.js-app').addClass('playing');
-        $('.js-song').text(player.nowplaying.song);
-        $('.js-artist').text(player.nowplaying.artist);
-        $('.js-duration').text(player.nowplaying.duration);
-        $.ajax({ url: 'https://api.spotify.com/v1/tracks/' + player.nowplaying.id, cache: false }).done(function(r){
-            $('.js-album-art').attr('src',r.album.images[1].url);
-        });
+        switch(player.status){
+            case 0:
+                $('.js-app').removeClass('playing');
+                break;
+            case 1:
+                $('.js-app').addClass('playing');
+                setPlayState('play');
+                break;
+            case 2:
+                $('.js-app').addClass('playing');
+                setPlayState('pause');
+                break;
+        }
+        if(!$.isEmptyObject(player.nowplaying)){
+            $('.js-song').text(player.nowplaying.song);
+            $('.js-artist').text(player.nowplaying.artist);
+            $('.js-duration').text(player.nowplaying.duration);
+            $.ajax({ url: 'https://api.spotify.com/v1/tracks/' + player.nowplaying.id, cache: false }).done(function(r){
+                $('.js-album-art').attr('src',r.album.images[1].url);
+            });
+        }
+    }
+
+    function setPlayState(state){
+        if(state == 'play'){
+            $('.js-control-pause').hide();
+            $('.js-control-play').show();
+        }else{
+            $('.js-control-play').hide();
+            $('.js-control-pause').show();
+        }
     }
 
     function allowScroll(act){

@@ -39,24 +39,39 @@ rClass.playerPlayNextSong = function () {
         spotify.player.play(track);
         rClass.setNowPlaying(track);
 
-        rApp.player.status = 1;
         rClass.log('Now playing: ' + track.name + ' de ' + track.artists[0].name);
     } else {
         rClass.resetQueue();
-        rApp.player.status = 0;
         rClass.log('No more songs');
     }
-}
-rClass.playerSeek = function (second) {
-    spotify.player.seek(parseInt(second));
 }
 rClass.playerStop = function () {
     spotify.player.stop();
 }
+rClass.playerPause = function () {
+    spotify.player.pause();
+}
+rClass.playerResume = function () {
+    spotify.player.resume();
+}
+rClass.playerSeek = function (second) {
+    spotify.player.seek(parseInt(second));
+}
+rClass.changeStatus = function (status) {
+    /*
+     * 0: parado y sin canciones en la cola
+     * 1: pausado con canciones en la cola
+     * 2: sonando
+     */
+    rApp.player.status = status;
+}
 rClass.resetQueue = function () {
+    rClass.changeStatus(0);
     rApp.player.queue = {};
+    io.emit('status', rApp.player);
 }
 rClass.setNowPlaying = function (trkObj) {
+    rClass.changeStatus(2);
     rApp.player.nowplaying = {
         song: trkObj.name,
         album: trkObj.album.name,
@@ -105,6 +120,17 @@ io.on('connection', function (socket) {
         rApp.queue = pl.getTracks();
 
         rClass.playerPlayNextSong();
+    });
+
+    socket.on('player resume', function (playlist) {
+        rClass.playerResume();
+        rClass.changeStatus(2);
+        socket.emit('status', rApp.player);
+    });
+    socket.on('player pause', function (playlist) {
+        rClass.playerPause();
+        rClass.changeStatus(1);
+        socket.emit('status', rApp.player);
     });
 
     socket.on('disconnect', function () {
