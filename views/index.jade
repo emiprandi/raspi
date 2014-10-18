@@ -15,17 +15,15 @@ html(lang="es")
     body.js-app
         div.list.js-list
             header
-                a.action.left.js-open-menu(href="#")
-                    i.sp.sp-action.sp-menu
-                a.action.right.js-open-search(href="#")
-                    i.sp.sp-action.sp-player
-                h1 Playlists
+                h1 Listas
             div.content.cf
-                each pl in playlists
-                    a.list-item.js-list-item(href=pl.link, style="background-image: url('"+pl.image+"')")
-                        div.info
-                            i.sp.sp-fade
-                            em= pl.name
+                ul
+                    each pl in playlists
+                        li
+                            a.js-list-item(href=pl.link)
+                                i.sp.sp-list-item
+                                em= pl.name
+                                div= pl.description + " " + pl.numTracks + " canciones."
         div.overlay.js-overlay
         div.menu.js-menu .
         div.search.js-search

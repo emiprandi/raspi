@@ -45,43 +45,38 @@ header a.action.right { float: right; }
 .list {
     width: 100%;
 }
-.list .content a.list-item {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    float: left;
-    margin: 0 8px 8px 0;
+.list .content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 100px 0;
+}
+.list .content ul li {
+    border-bottom: 1px solid #DDD;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 0;
+}
+.list .content ul li a {
+    color: #999;
+    display: block;
+    padding: 15px 0 10px 0;
     text-decoration: none;
-    width: -webkit-calc(50% - 4px);
-    width: calc(50% - 4px);
 }
-.list .content a.list-item:nth-child(2n) {
-    margin-right: 0;
+.list .content ul li a i {
+    float: left;
+    margin-left: 16px;
 }
-.list .content a.list-item div.info {
-    margin-top: 120px;
-}
-.list .content a.list-item div.info em {
-    background-color: rgba(0,0,0,0.7);
-    color: #FFF;
+.list .content ul li a em {
+    color: #555;
     display: block;
     font-style: normal;
-    padding: 12px 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 20px;
+    margin-left: 72px;
 }
-@media only screen and (min-width: 600px) {
-    .list .content a.list-item {
-        width: -webkit-calc(25% - 6px);
-        width: calc(25% - 6px);
-    }
-    .list .content a.list-item:nth-child(2n) {
-        margin-right: 8px;
-    }
-    .list .content a.list-item:nth-child(4n) {
-        margin-right: 0;
-    }
+.list .content ul li a div {
+    font-size: 12px;
+    line-height: 20px;
+    margin-left: 72px;
 }
 
 .overlay {
@@ -261,6 +256,11 @@ body.playing .player {
 }
 .sp.sp-play {
     background-position: -40px -24px;
+    height: 40px;
+    width: 40px;
+}
+.sp.sp-list-item {
+    background-position: -80px -24px;
     height: 40px;
     width: 40px;
 }
