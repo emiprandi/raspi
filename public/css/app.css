@@ -153,8 +153,8 @@ header a.action.right { float: right; }
     z-index: 20;
     -webkit-transition: bottom 0.3s;
     transition: bottom 0.3s;
-    -webkit-box-shadow: 0 -1px 8px rgba(0,0,0,0.5);
-    box-shadow: 0 -1px 8px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 -1px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 -1px 4px rgba(0,0,0,0.5);
 }
 body.playing .player {
     bottom: 0;
