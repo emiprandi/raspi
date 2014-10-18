@@ -59,7 +59,7 @@ header a.action.right { float: right; }
 .list .content ul li a {
     color: #999;
     display: block;
-    padding: 15px 0 10px 0;
+    padding: 15px 16px 10px 0;
     text-decoration: none;
 }
 .list .content ul li a i {
