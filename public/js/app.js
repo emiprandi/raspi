@@ -70,7 +70,10 @@ $(function(){
         if(!$.isEmptyObject(player.nowplaying)){
             $('.js-song').text(player.nowplaying.song);
             $('.js-artist').text(player.nowplaying.artist);
-            $('.js-duration').text(player.nowplaying.duration);
+            var m = Math.floor(player.nowplaying.duration/60);
+            var s = player.nowplaying.duration-m*60;
+            $('.js-duration').text(m+':'+s);
+            
             $.ajax({ url: 'https://api.spotify.com/v1/tracks/' + player.nowplaying.id, cache: false }).done(function(r){
                 $('.js-album-art').attr('src',r.album.images[1].url);
             });
